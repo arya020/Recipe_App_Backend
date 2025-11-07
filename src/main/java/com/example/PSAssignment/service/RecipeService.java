@@ -3,7 +3,6 @@ package com.example.PSAssignment.service;
 import com.example.PSAssignment.model.Recipe;
 import com.example.PSAssignment.model.RecipeDTO;
 import com.example.PSAssignment.repository.RecipeRepository;
-import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 import org.hibernate.search.mapper.orm.Search;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
