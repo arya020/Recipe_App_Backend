@@ -2,7 +2,9 @@ package com.example.PSAssignment.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.search.engine.backend.types.Sortable;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.FullTextField;
+import org.hibernate.search.mapper.pojo.mapping.definition.annotation.GenericField;
 import org.hibernate.search.mapper.pojo.mapping.definition.annotation.Indexed;
 
 
@@ -17,6 +19,7 @@ import java.util.List;
 public class Recipe {
 
     @Id
+    @GenericField(sortable = Sortable.YES)
     private Long id;
 
     @FullTextField

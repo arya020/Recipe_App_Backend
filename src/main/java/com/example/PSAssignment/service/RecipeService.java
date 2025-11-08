@@ -56,6 +56,7 @@ public class RecipeService {
                             .fields("name", "cuisine")
                             .matching(text + "*"));
                 }))
+                .sort(f -> f.field("id").asc())
                 .fetchAllHits();
     }
 
