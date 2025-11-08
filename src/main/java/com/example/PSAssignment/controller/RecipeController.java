@@ -2,11 +2,15 @@ package com.example.PSAssignment.controller;
 
 import com.example.PSAssignment.model.Recipe;
 import com.example.PSAssignment.service.RecipeService;
+import jakarta.validation.*;
+import jakarta.validation.constraints.Min;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Validated
 public class RecipeController {
 
     private final RecipeService recipeService;
@@ -15,8 +19,13 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
+    @GetMapping("/load")
+    public void loadData(){
+        recipeService.loadRecipes();
+    }
+
     @GetMapping("/{id}")
-    public Recipe findById(@PathVariable Long id) {
+    public Recipe findById(@PathVariable  @Min(value = 0, message = "Recipe ID must be positive") Long id) {
         return recipeService.findById(id);
     }
 

@@ -10,8 +10,6 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -19,13 +17,14 @@ public class RecipeService {
 
     private final EntityManager entityManager;
     private final RecipeRepository recipeRepository;
+    private final RestTemplate restTemplate;
 
     String apiUrl = "https://dummyjson.com/recipes";
-    RestTemplate restTemplate = new RestTemplate();
 
-    public RecipeService(EntityManager entityManager, RecipeRepository recipeRepository) {
+    public RecipeService(EntityManager entityManager, RecipeRepository recipeRepository,RestTemplate restTemplate) {
         this.entityManager = entityManager;
         this.recipeRepository = recipeRepository;
+        this.restTemplate = restTemplate;
     }
 
     @EventListener(ApplicationReadyEvent.class)
@@ -49,9 +48,11 @@ public class RecipeService {
     public List<Recipe> search(String text) {
         return Search.session(entityManager)
                 .search(Recipe.class)
-                .where(f -> f.match()
-                        .fields("name", "cuisine")
-                        .matching(text))
+                .where(f -> f.bool(b -> {
+                    b.should(f.simpleQueryString()
+                            .fields("name", "cuisine")
+                            .matching(text + "*"));
+                }))
                 .fetchAllHits();
     }
 
