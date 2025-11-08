@@ -10,6 +10,8 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -91,6 +93,8 @@ public class RecipeService {
                             .mealType(dto.getMealType())
                             .build())
                     .toList();
+
+            list.sort(Comparator.comparing(Recipe::getId));
 
             recipeRepository.saveAll(list);
         }
