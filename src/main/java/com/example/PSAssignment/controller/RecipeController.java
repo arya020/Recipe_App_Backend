@@ -19,9 +19,9 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping("/load")
-    public void loadData(){
-        recipeService.loadRecipes();
+    @GetMapping("/all")
+    public List<Recipe> findAll(){
+        return recipeService.findAll();
     }
 
     @GetMapping("/{id}")

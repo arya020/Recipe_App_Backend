@@ -99,5 +99,9 @@ public class RecipeService {
             recipeRepository.saveAll(list);
         }
     }
+
+    public List<Recipe> findAll() {
+        return recipeRepository.findAll();
+    }
 }
 
