@@ -21,7 +21,7 @@ public class RecipeController {
 
     @GetMapping("/all")
     public List<Recipe> findAll(){
-        return recipeService.findAll();
+        return recipeService.findAllRecipes();
     }
 
     @GetMapping("/{id}")

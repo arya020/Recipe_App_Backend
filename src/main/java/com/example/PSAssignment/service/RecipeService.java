@@ -13,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
@@ -92,7 +93,7 @@ public class RecipeService {
                             .tags(dto.getTags())
                             .mealType(dto.getMealType())
                             .build())
-                    .toList();
+                    .collect(Collectors.toList());
 
             list.sort(Comparator.comparing(Recipe::getId));
 
@@ -100,7 +101,8 @@ public class RecipeService {
         }
     }
 
-    public List<Recipe> findAll() {
+
+    public List<Recipe> findAllRecipes() {
         return recipeRepository.findAll();
     }
 }

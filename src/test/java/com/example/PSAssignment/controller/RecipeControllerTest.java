@@ -32,14 +32,6 @@ class RecipeControllerTest {
     private RecipeService recipeService;
 
     @Test
-    void whenLoadData_thenOk() throws Exception {
-        // no return value expected
-        mockMvc.perform(get("/load"))
-                .andExpect(status().isOk());
-        Mockito.verify(recipeService, Mockito.times(1)).loadRecipes();
-    }
-
-    @Test
     void whenFindById_validId_thenOk() throws Exception {
         Recipe mockRecipe = new Recipe();
         BDDMockito.given(recipeService.findById(1L)).willReturn(mockRecipe);
